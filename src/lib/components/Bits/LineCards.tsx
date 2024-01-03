@@ -103,5 +103,5 @@ export const data = {
 };
 
 export default function LineChart() {
-  return <Chart options={options} data={data} />;
+  return <Chart options={options as any} data={data} />;
 }

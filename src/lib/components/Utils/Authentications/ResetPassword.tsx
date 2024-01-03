@@ -15,15 +15,17 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { PrimaryInput } from '../FormInputs/PrimaryInput';
 import ButtonComponent from '../MiniComponents/ButtonComponent';
 import { MainHeader } from '../MiniComponents/MainHeader';
 import { MainSubTitle } from '../MiniComponents/MainSubTitle';
-import { InitiateResetModel, UserService } from '~/services';
+import { UserService } from '~/services';
+
+interface InitiateResetModel {
+  email: string | undefined;
+}
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -42,11 +44,10 @@ const ResetPassword = () => {
 
   const onSubmit = async (data: InitiateResetModel) => {
     try {
-      const result = await UserService.initiateReset({
-        redirectUrl: `/password/reset`,
-        requestBody: data,
+      const result = await UserService.postApiUserForgotPassword({
+        email: data.email,
       });
-      if (result.status) {
+      if (result.success) {
         toast.success(result.message as string);
         return;
       }
@@ -71,7 +72,7 @@ const ResetPassword = () => {
           borderRadius="8px"
         >
           <Image
-            src="/assets/adminc.jpg"
+            src="/assets/imga.jpg"
             my={['1rem', '2rem !important', '5rem']}
             objectFit="contain"
           />
@@ -85,7 +86,7 @@ const ResetPassword = () => {
           w="full"
         >
           <Circle size="3rem" mx="auto" mb="1rem">
-            <Image src="/assets/lock.png" w="full" h="auto" />
+            <Image src="/assets/logo.png" w="full" h="auto" />
           </Circle>
           {showSuccess ? (
             <Box borderRadius="10px" bgColor="#F8F6F5" p="1rem">
@@ -131,7 +132,7 @@ const ResetPassword = () => {
                   isValid={isValid}
                   loading={isSubmitting}
                   type="submit"
-                  w='full'
+                  w="full"
                 />
               </Stack>
             </form>

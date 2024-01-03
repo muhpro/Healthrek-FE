@@ -103,6 +103,6 @@ import {
   };
   
   export function BarChart() {
-    return <Chart options={options} data={data} />;
+    return <Chart options={options as any} data={data} />;
   }
   

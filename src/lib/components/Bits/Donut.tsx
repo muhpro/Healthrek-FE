@@ -66,5 +66,5 @@ export const data = {
 };
 
 export default function Donut() {
-  return <Chart options={options} data={data} />;
+  return <Chart options={options as any} data={data} />;
 }

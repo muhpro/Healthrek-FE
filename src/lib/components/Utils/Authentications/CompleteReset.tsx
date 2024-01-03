@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { InitiateResetModel, PasswordReset, UserService } from '~/services';
+import { CompletePasswordReset, UserService } from '~/services';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -33,7 +33,7 @@ const CompleteReset = ({ code }: { code: string }) => {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<PasswordReset>({
+  } = useForm<CompletePasswordReset>({
     resolver: yupResolver(schema),
     mode: 'all',
     defaultValues: {
@@ -45,10 +45,12 @@ const CompleteReset = ({ code }: { code: string }) => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = async (data: PasswordReset) => {
+  const onSubmit = async (data: CompletePasswordReset) => {
     try {
-      const result = await UserService.completeReset({ requestBody: data });
-      if (result.status) {
+      const result = await UserService.postApiUserCompleteReset({
+        requestBody: data,
+      });
+      if (result.success) {
         setSuccess(true);
         return;
       }
@@ -73,7 +75,7 @@ const CompleteReset = ({ code }: { code: string }) => {
           borderRadius="8px"
         >
           <Image
-            src="/assets/adminb.jpg"
+            src="/assets/imga.jpg"
             my={['1rem', '2rem !important', '5rem']}
             objectFit="contain"
           />
@@ -87,7 +89,7 @@ const CompleteReset = ({ code }: { code: string }) => {
           w="full"
         >
           <Circle size="3rem" mx="auto">
-            <Image src="/assets/lock.png" w="full" h="auto" />
+            <Image src="/assets/logo.png" w="full" h="auto" />
           </Circle>
           {success ? (
             <Box borderRadius="10px" bgColor="#F8F6F5" p="1rem">
@@ -120,7 +122,7 @@ const CompleteReset = ({ code }: { code: string }) => {
                     lh="normal"
                   />
                 </VStack>
-                <PrimaryInput<PasswordReset>
+                <PrimaryInput<CompletePasswordReset>
                   label="New Password"
                   name="newPassword"
                   error={errors.newPassword}
@@ -132,7 +134,7 @@ const CompleteReset = ({ code }: { code: string }) => {
                   isValid={isValid}
                   loading={isSubmitting}
                   type="submit"
-                  w='full'
+                  w="full"
                 />
               </Stack>
             </form>

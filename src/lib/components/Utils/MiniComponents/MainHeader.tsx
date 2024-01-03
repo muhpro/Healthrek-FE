@@ -1,16 +1,15 @@
 import { Text } from '@chakra-ui/react';
 import React from 'react';
 import { IMainHeader } from '../../Schemas';
-import parse from 'html-react-parser';
 
 export const MainHeader = ({
-  size = ['1.155rem', '3rem'],
+  size = ['1.155rem', '60px'],
   text,
   align = 'center',
   color = 'brand.300',
   w = 'full',
   fw = '600',
-  lh = ['normal', '4.25rem'],
+  lh = ['normal', '68px'],
   ls = ['0', '-2px'],
 }: IMainHeader) => {
   return (
@@ -25,7 +24,7 @@ export const MainHeader = ({
       wordBreak="break-word"
       mb="0"
     >
-      {parse(text)}
+      {text}
     </Text>
   );
 };
