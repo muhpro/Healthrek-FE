@@ -187,19 +187,6 @@ export const AddBirthRecord = ({
                 register={register}
                 type="number"
               />
-              <PrimarySelect<InfantModel>
-                label="Role"
-                name="role"
-                error={errors.role}
-                register={register}
-                options={
-                  <>
-                    {['Super Admin', 'Clinical Team', 'Guardian'].map((x) => (
-                      <option value={x}>{x}</option>
-                    ))}
-                  </>
-                }
-              />
             </Grid>
             <Text fontWeight={600} fontSize="1.15rem">
               Guardian Information
@@ -269,6 +256,19 @@ export const AddBirthRecord = ({
                 options={
                   <>
                     {['Parent', 'Relative', 'Adopted Parent'].map((x) => (
+                      <option value={x}>{x}</option>
+                    ))}
+                  </>
+                }
+              />
+              <PrimarySelect<InfantModel>
+                label="Role"
+                name="role"
+                error={errors.role}
+                register={register}
+                options={
+                  <>
+                    {['Super Admin', 'Clinical Team', 'Guardian'].map((x) => (
                       <option value={x}>{x}</option>
                     ))}
                   </>

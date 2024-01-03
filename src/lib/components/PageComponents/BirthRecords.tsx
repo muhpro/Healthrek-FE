@@ -31,8 +31,7 @@ export const BirthRecords = ({ records }: { records: any }) => {
     'Gender',
     'DOB',
     'Mode of Delivery',
-    'Phone',
-    'City',
+    'Gestation Week',
     'Action',
   ];
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,8 +76,8 @@ export const BirthRecords = ({ records }: { records: any }) => {
                     name={dayjs(x?.dateOfBirth).format('DD/MM/YYYY')}
                   />
                   <TableData name={x?.modeOfDelivery} />
-                  <TableData name={x?.guardian?.phone} />
-                  <TableData name={x?.guardian?.city} />
+                  <TableData name={x?.guardian?.gestationWeek} />
+                  {/* <TableData name={x?.guardian?.city} /> */}
                   <Td>
                     <HStack gap="1rem">
                       <Link passHref href={`/infant-records/${x.id}`}>
