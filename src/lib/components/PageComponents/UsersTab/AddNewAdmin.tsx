@@ -1,5 +1,5 @@
 'use client';
-import { Button, Text, VStack } from '@chakra-ui/react';
+import { Button, Grid, Text, VStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -68,98 +68,101 @@ function AddNewAdmin() {
         Add Admin
       </Text> */}
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-        <VStack spacing="1rem" alignItems="flex-start" w="40%">
-          <PrimaryInput<ClinicalTeamModel>
-            register={register}
-            name="firstName"
-            error={errors.firstName}
-            defaultValue=""
-            type="text"
-            label="First name"
-            placeholder="First Name"
-          />
-          <PrimaryInput<ClinicalTeamModel>
-            register={register}
-            name="lastName"
-            error={errors.lastName}
-            defaultValue=""
-            type="text"
-            label="Surname"
-            placeholder="Surname"
-          />
-          <PrimaryInput<ClinicalTeamModel>
-            register={register}
-            name="email"
-            error={errors.email}
-            defaultValue=""
-            type="text"
-            label="Email"
-            placeholder="Email"
-          />
-          <PrimaryInput<ClinicalTeamModel>
-            register={register}
-            name="phone"
-            error={errors.phone}
-            defaultValue=""
-            type="text"
-            label="Phone"
-            placeholder="Phone"
-          />
-          <PrimaryInput<ClinicalTeamModel>
-            label="Password"
-            name="password"
-            defaultValue=""
-            register={register}
-            error={errors.password}
-            changePasswordType={changePasswordField}
-            passwordVisible={showPassword}
-            type={showPassword ? 'password' : 'text'}
-            icon
-          />
-          <PrimarySelect<ClinicalTeamModel>
-            label="Role"
-            name="role"
-            error={errors.role}
-            register={register}
-            placeholder="Super Admin"
-            options={
-              <>
-                {['Super Admin', 'Clinical Team', 'Guardian'].map((x) => (
-                  <option value={x}>{x}</option>
-                ))}
-              </>
-            }
-          />
-          <PrimarySelect<ClinicalTeamModel>
-            label="Clinical Team"
-            name="clinicalTeamType"
-            error={errors.clinicalTeamType}
-            register={register}
-            placeholder="Doctor"
-            options={
-              <>
-                {['Doctor', 'Nurse'].map((x) => (
-                  <option value={x}>{x}</option>
-                ))}
-              </>
-            }
-          />
-          <Button
-            w="full"
-            mt="2rem"
-            height="3rem"
-            type="submit"
-            isLoading={isSubmitting}
-            borderRadius="4px"
-            colorScheme="brand"
-            _hover={{
-              bgColor: 'transparent',
-              color: 'brand.500',
-              border: '2px solid black',
-            }}
-          >
-            Add
-          </Button>
+        <VStack spacing="1rem" alignItems="flex-start" w="100%">
+          <Grid templateColumns={['1fr', 'repeat(2,1fr)']} gap="1rem" w="full">
+            <PrimaryInput<ClinicalTeamModel>
+              register={register}
+              name="firstName"
+              error={errors.firstName}
+              defaultValue=""
+              type="text"
+              label="First name"
+              placeholder="First Name"
+            />
+            <PrimaryInput<ClinicalTeamModel>
+              register={register}
+              name="lastName"
+              error={errors.lastName}
+              defaultValue=""
+              type="text"
+              label="Surname"
+              placeholder="Surname"
+            />
+            <PrimaryInput<ClinicalTeamModel>
+              register={register}
+              name="email"
+              error={errors.email}
+              defaultValue=""
+              type="text"
+              label="Email"
+              placeholder="Email"
+            />
+            <PrimaryInput<ClinicalTeamModel>
+              register={register}
+              name="phone"
+              error={errors.phone}
+              defaultValue=""
+              type="text"
+              label="Phone"
+              placeholder="Phone"
+            />
+            <PrimaryInput<ClinicalTeamModel>
+              label="Password"
+              name="password"
+              defaultValue=""
+              register={register}
+              error={errors.password}
+              changePasswordType={changePasswordField}
+              passwordVisible={showPassword}
+              type={showPassword ? 'password' : 'text'}
+              icon
+            />
+            <PrimarySelect<ClinicalTeamModel>
+              label="Role"
+              name="role"
+              error={errors.role}
+              register={register}
+              placeholder="Super Admin"
+              options={
+                <>
+                  {['Super Admin', 'Clinical Team', 'Guardian'].map((x) => (
+                    <option value={x}>{x}</option>
+                  ))}
+                </>
+              }
+            />
+            <PrimarySelect<ClinicalTeamModel>
+              label="Clinical Team"
+              name="clinicalTeamType"
+              error={errors.clinicalTeamType}
+              register={register}
+              placeholder="Doctor"
+              options={
+                <>
+                  {['Doctor', 'Nurse'].map((x) => (
+                    <option value={x}>{x}</option>
+                  ))}
+                </>
+              }
+            />
+            <Button
+              w="full"
+              mt="1.5rem"
+              height="3rem"
+              type="submit"
+              isLoading={isSubmitting}
+              borderRadius="4px"
+              bgColor="brand.100"
+              color="white"
+              _hover={{
+                bgColor: 'transparent',
+                color: 'brand.100',
+                border: '2px solid black',
+              }}
+            >
+              Add
+            </Button>
+          </Grid>
         </VStack>
       </form>
     </VStack>

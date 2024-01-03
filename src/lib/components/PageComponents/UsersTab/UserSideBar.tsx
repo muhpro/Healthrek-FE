@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import SearchComponent from '../../Utils/SearchComponent';
 
 function UserSideBar({ userId, allUsers, searchable }: any) {
-  const result = allUsers.value;
+  const result = allUsers;
   const router = useRouter();
   const { queryParams, setQueryParams } = useQueryParams();
   return (
@@ -47,7 +47,7 @@ function UserSideBar({ userId, allUsers, searchable }: any) {
             );
           })}
         </Box>
-        <Pagination data={allUsers} />
+        {/* <Pagination data={allUsers} /> */}
       </Box>
     </Box>
   );

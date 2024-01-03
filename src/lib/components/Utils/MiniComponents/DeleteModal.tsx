@@ -12,16 +12,39 @@ import {
 import { useCookies } from 'next-client-cookies';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
-function DeleteModal({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
-  const [loading, setLoading] = useState(false);
+function DeleteModal({
+  isOpen,
+  onClose,
+  api,
+  id,
+}: {
+  isOpen: boolean;
+  onClose: any;
+  api: any;
+  id: any;
+}) {
+  const [loading, setLoading] = useState({ id: '' });
   const router = useRouter();
   const cookies = useCookies();
-  const handleLogout = () => {
-    setLoading(true);
-    cookies.remove('admin'), cookies.remove('token');
-    router.push('/login');
+
+  const deleteRecord = async (value: any, api: any) => {
+    setLoading({ id: value });
+    try {
+      const res = await api();
+      if (res.success) {
+        setLoading({ id: '' });
+        router.refresh();
+        toast.success('Action Successful');
+        return;
+      }
+    } catch (error: any) {
+      setLoading({ id: '' });
+      toast.error(error?.message || error?.body?.message);
+    }
   };
+
   return (
     <Modal
       motionPreset="slideInBottom"
@@ -79,8 +102,8 @@ function DeleteModal({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
               <Button
                 w="full"
                 height="3rem"
-                onClick={() => handleLogout()}
-                isLoading={loading}
+                onClick={() => deleteRecord(id, api)}
+                isLoading={loading.id == id}
                 bgColor="brand.100"
                 color="white"
               >

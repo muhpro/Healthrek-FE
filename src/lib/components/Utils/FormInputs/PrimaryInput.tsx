@@ -52,7 +52,7 @@ export const PrimaryInput = <TFormValues extends Record<string, any>>({
   placeholder = '',
   fontSize = '.8rem',
   passwordVisible,
-  defaultValue,
+  defaultValue = '',
   changePasswordType,
   border,
   borderColor = 'gray.300',

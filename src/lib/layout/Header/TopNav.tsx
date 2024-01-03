@@ -10,7 +10,7 @@ export default function TopNav() {
   const cookies = useCookies();
   const adminCookies = cookies.get('admin') as string;
   const admin = adminCookies && JSON.parse(adminCookies);
-  const pageTitle = pathname.split('/')[1].replaceAll('-', ' ');
+  const pageTitle = pathname.split('/')?.at(-1)?.replaceAll('-', ' ');
 
   return (
     <Flex

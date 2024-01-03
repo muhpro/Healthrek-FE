@@ -2,6 +2,8 @@
 import { Box, Flex, VStack, Text, Button } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { InfoWrapper } from '../../Utils/MiniComponents/InfoWrapper';
+import toast from 'react-hot-toast';
+import { UserService } from '~/services';
 
 interface ProfileType {
   user: any | undefined;
@@ -9,6 +11,22 @@ interface ProfileType {
 
 function Profile({ user }: ProfileType) {
   const router = useRouter();
+
+  const deactivateAdmin = async (isActive: boolean) => {
+    try {
+      const res = await UserService.postApiUserToggleActive({
+        isActive,
+        userId: user?.id,
+      });
+      if (res.success) {
+        toast.success('Action Successful');
+        router.refresh();
+        return;
+      }
+    } catch (error: any) {
+      toast.error(error?.message || error?.body?.message);
+    }
+  };
 
   return (
     <Flex justify="space-between" mt="2rem" pr="5rem">
@@ -33,15 +51,18 @@ function Profile({ user }: ProfileType) {
             />
           </Box>
         )}
+
         <Button
           variant="outline"
-          border="2px solid black"
-          color="black"
+          border="2px solid"
+          borderColor="brand.100"
+          color="brand.100"
           borderRadius="4px"
           h="2.8rem"
           px="3rem"
+          onClick={() => deactivateAdmin(!user?.isActive)}
         >
-          Deactivate Admin
+          {user?.isActive ? 'Deactivate' : 'Activate'} Admin
         </Button>
       </VStack>
     </Flex>

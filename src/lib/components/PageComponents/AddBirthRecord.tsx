@@ -37,24 +37,57 @@ const schema = yup.object().shape({
   nextOfKinEmail: yup.string().required(),
 });
 
-export const AddBirthRecord = () => {
+export const AddBirthRecord = ({
+  data,
+  isEdit,
+}: {
+  data?: any;
+  isEdit?: boolean;
+}) => {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isValid, isSubmitting },
   } = useForm<InfantModel>({
     resolver: yupResolver(schema),
     mode: 'all',
+    defaultValues: {
+      id: data?.id,
+      email: data?.guardian?.email,
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      dateOfBirth: data?.dateOfBirth,
+      gender: data?.gender,
+      lengthOfBirth: data?.lengthOfBirth,
+      modeOfDelivery: data?.modeOfDelivery,
+      gestationWeek: data?.gestationWeek,
+      guardianFirstName: data?.guardian?.firstName,
+      guardianLastName: data?.guardian?.lastName,
+      phone: data?.guardian?.phone,
+      guardianDateOfBirth: data?.guardian?.dateOfBirth,
+      role: data?.guardian?.role,
+      address: data?.guardian?.address,
+      alternatePhoneNumber: data?.guardian?.alternatePhoneNumber,
+      city: data?.guardian?.city,
+      guardianType: data?.guardian?.guardianType,
+      nextOfKinName: data?.guardian?.nextOfKinName,
+      nextOfKinAddress: data?.guardian?.nextOfKinAddress,
+      nextOfKinPhoneNumber: data?.guardian?.nextOfKinPhoneNumber,
+      nextOfKinEmail: data?.guardian?.nextOfKinEmail,
+    },
   });
 
-  const onSubmit = async (data: InfantModel) => {
+  const onSubmit = async (data: any) => {
     try {
-      const res = await UserService.postApiUserAddInfant({ requestBody: data });
+      const res = isEdit
+        ? await UserService.postApiUserUpdateInfant({ requestBody: data })
+        : await UserService.postApiUserAddInfant({ requestBody: data });
       if (res.success) {
         toast.success('Success');
-        router.push('/birth-records');
+        router.push('/infant-records');
         return;
       }
       toast.error(res?.message as string);
@@ -107,7 +140,7 @@ export const AddBirthRecord = () => {
                 name="dateOfBirth"
                 error={errors.dateOfBirth}
                 control={control}
-                placeholder={dayjs().format('DD/MM/YYYY')}
+                placeholder={dayjs(watch('dateOfBirth')).format('DD/MM/YYYY')}
               />
               <PrimarySelect<InfantModel>
                 label="Gender"
@@ -206,7 +239,9 @@ export const AddBirthRecord = () => {
                 name="guardianDateOfBirth"
                 error={errors.guardianDateOfBirth}
                 control={control}
-                placeholder={dayjs().format('DD/MM/YYYY')}
+                placeholder={dayjs(watch('guardianDateOfBirth')).format(
+                  'DD/MM/YYYY'
+                )}
               />
               <PrimaryInput<InfantModel>
                 label="Address"
@@ -289,7 +324,7 @@ export const AddBirthRecord = () => {
                 borderRadius="0"
                 borderColor="red.600"
                 color="red.600"
-                onClick={() => router.push('/birth-records')}
+                onClick={() => router.push('/infant-records')}
                 _hover={{
                   bgColor: 'red.600',
                   color: 'white',
@@ -298,7 +333,7 @@ export const AddBirthRecord = () => {
                 Cancel
               </Button>
               <ButtonComponent
-                content="Add Record"
+                content={isEdit ? 'Edit Record' : 'Add Record'}
                 isValid={isValid}
                 loading={isSubmitting}
                 type="submit"

@@ -2,33 +2,29 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ClinicalTeamModel } from '../models/ClinicalTeamModel';
-import type { CompletePasswordReset } from '../models/CompletePasswordReset';
-import type { EmailVerificationModel } from '../models/EmailVerificationModel';
-import type { InfantModel } from '../models/InfantModel';
-import type { InfantUpdateModel } from '../models/InfantUpdateModel';
-import type { LoginModel } from '../models/LoginModel';
+import type { GrowthModel } from '../models/GrowthModel';
+import type { ImmunizationModel } from '../models/ImmunizationModel';
+import type { MedicalVisitModel } from '../models/MedicalVisitModel';
 import type { ResponseModel } from '../models/ResponseModel';
-import type { UpdateUserModel } from '../models/UpdateUserModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class UserService {
+export class HealthService {
 
     /**
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static postApiUserAddClinicalTeam({
+    public static postApiHealthConsultationAddVisitationDetail({
 requestBody,
 }: {
-requestBody?: ClinicalTeamModel,
+requestBody?: MedicalVisitModel,
 }): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/User/add-clinical-team',
+            url: '/api/Health/consultation/add-visitation-detail',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -42,14 +38,14 @@ requestBody?: ClinicalTeamModel,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static postApiUserUpdateUser({
+    public static postApiHealthConsultationUpdateVisitationDetail({
 requestBody,
 }: {
-requestBody?: UpdateUserModel,
+requestBody?: MedicalVisitModel,
 }): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/User/update-user',
+            url: '/api/Health/consultation/update-visitation-detail',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -63,160 +59,14 @@ requestBody?: UpdateUserModel,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static postApiUserToggleActive({
-isActive,
-userId,
-}: {
-isActive?: boolean,
-userId?: string,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/toggle-active',
-            query: {
-                'isActive': isActive,
-                'userId': userId,
-            },
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static postApiUserAddInfant({
-requestBody,
-}: {
-requestBody?: InfantModel,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/add-infant',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static postApiUserConfirmEmail({
-requestBody,
-}: {
-requestBody?: EmailVerificationModel,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/confirm-email',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static postApiUserCompleteReset({
-requestBody,
-}: {
-requestBody?: CompletePasswordReset,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/complete-reset',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static postApiUserForgotPassword({
-email,
-}: {
-email?: string,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/forgot-password',
-            query: {
-                'email': email,
-            },
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static postApiUserLogin({
-requestBody,
-}: {
-requestBody?: LoginModel,
-}): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/User/login',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static getApiUserListUsers(): CancelablePromise<ResponseModel> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/User/list-users',
-            errors: {
-                400: `Bad Request`,
-                500: `Server Error`,
-            },
-        });
-    }
-
-    /**
-     * @returns ResponseModel Success
-     * @throws ApiError
-     */
-    public static getApiUser({
+    public static postApiHealthConsultationDeleteMedicalHistory({
 id,
 }: {
 id: string,
 }): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/User/{id}',
+            method: 'POST',
+            url: '/api/Health/consultation/delete-medical-history/{id}',
             path: {
                 'id': id,
             },
@@ -231,10 +81,17 @@ id: string,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static getApiUserInfants(): CancelablePromise<ResponseModel> {
+    public static getApiHealthConsultationMedicalHistory({
+infantId,
+}: {
+infantId: string,
+}): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/User/infants',
+            url: '/api/Health/consultation/medical-history/{infantId}',
+            path: {
+                'infantId': infantId,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -246,14 +103,14 @@ id: string,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static postApiUserUpdateInfant({
+    public static postApiHealthGrowthAddGrowthRecord({
 requestBody,
 }: {
-requestBody?: InfantUpdateModel,
+requestBody?: GrowthModel,
 }): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/User/update-infant',
+            url: '/api/Health/growth/add-growth-record',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -267,17 +124,161 @@ requestBody?: InfantUpdateModel,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static getApiUserInfants1({
+    public static postApiHealthGrowthUpdate({
+requestBody,
+}: {
+requestBody?: GrowthModel,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Health/growth/update',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static postApiHealthGrowthDelete({
 id,
 }: {
 id: string,
 }): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/User/infants/{id}',
+            method: 'POST',
+            url: '/api/Health/growth/delete/{id}',
             path: {
                 'id': id,
             },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static getApiHealthGrowthInfantGrowthRecord({
+infantId,
+}: {
+infantId: string,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Health/growth/infant-growth-record/{infantId}',
+            path: {
+                'infantId': infantId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static postApiHealthImmunizationAddImmunizationRecord({
+requestBody,
+}: {
+requestBody?: ImmunizationModel,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Health/immunization/add-immunization-record',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static postApiHealthImmunizationUpdateImmunizationRecord({
+requestBody,
+}: {
+requestBody?: ImmunizationModel,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Health/immunization/update-immunization-record',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static postApiHealthImmunizationDelete({
+id,
+}: {
+id: string,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Health/immunization/delete/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static getApiHealthImmunization({
+infantId,
+}: {
+infantId: string,
+}): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Health/immunization/{infantId}',
+            path: {
+                'infantId': infantId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static getApiHealthVaccines(): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Health/vaccines',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

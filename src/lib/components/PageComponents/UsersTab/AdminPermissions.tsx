@@ -8,7 +8,7 @@ export const AdminPermissions = () => {
     <VStack mt="1rem" w="50%" spacing={1}>
       <SinglePermission action="View analytics" />
       <SinglePermission action="View user details" />
-      <SinglePermission action="View loans" />
+      {/* <SinglePermission action="View loans" />
       <SinglePermission action="View admin users" />
       <SinglePermission action="View transactions" />
       <SinglePermission action="View services" />
@@ -21,7 +21,7 @@ export const AdminPermissions = () => {
       <SinglePermission action="View savings" />
       <SinglePermission action="Modify savings" />
       <SinglePermission action="View investments" />
-      <SinglePermission action="Modify investments" />
+      <SinglePermission action="Modify investments" /> */}
     </VStack>
   );
 };

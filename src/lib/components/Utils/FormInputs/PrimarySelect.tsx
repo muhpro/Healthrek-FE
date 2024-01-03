@@ -33,7 +33,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
   label = '',
   fontSize = '.8rem',
   options,
-  defaultValue,
+  defaultValue = '',
   disabled,
   h = '2.6rem',
   borderColor = 'gray.300',

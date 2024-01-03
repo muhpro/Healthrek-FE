@@ -22,8 +22,9 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import DeleteModal from '../Utils/MiniComponents/DeleteModal';
 import SearchComponent from '../Utils/SearchComponent';
 import Pagination from '../Utils/MiniComponents/Pagination';
+import { IoMdEye } from 'react-icons/io';
 
-export const BirthRecords = () => {
+export const BirthRecords = ({ records }: { records: any }) => {
   const thead = [
     'First Name',
     'Last Name',
@@ -40,10 +41,11 @@ export const BirthRecords = () => {
     setData(value);
     onOpen();
   };
+
   return (
     <Box>
       <Flex>
-        <Link passHref href="add-birth-record">
+        <Link passHref href="/infant-records/add-infant-record">
           <ButtonComponent
             content="Add New Record"
             type="button"
@@ -66,46 +68,55 @@ export const BirthRecords = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {Array(8)
-                .fill(8)
-                .map((x: any) => (
-                  <Tr>
-                    <TableData name="Adeyemi" />
-                    <TableData name="Johnson" />
-                    <TableData name="Male" />
-                    <TableData name={dayjs().format('DD/MM/YYYY')} />
-                    <TableData name="Delivery" />
-                    <TableData name="09066567878" />
-                    <TableData name="Lagos" />
-                    <Td>
-                      <HStack gap="1rem">
+              {records?.map((x: any) => (
+                <Tr>
+                  <TableData name={x?.firstName} />
+                  <TableData name={x?.lastName} />
+                  <TableData name={x?.gender} />
+                  <TableData
+                    name={dayjs(x?.dateOfBirth).format('DD/MM/YYYY')}
+                  />
+                  <TableData name={x?.modeOfDelivery} />
+                  <TableData name={x?.guardian?.phone} />
+                  <TableData name={x?.guardian?.city} />
+                  <Td>
+                    <HStack gap="1rem">
+                      <Link passHref href={`/infant-records/${x.id}`}>
                         <IconButton
                           aria-label="Edit user"
-                          icon={<MdEdit />}
+                          icon={<IoMdEye />}
                           cursor="pointer"
                           colorScheme="blue"
                           size="sm"
                           isRound={false}
                         />
-                        <IconButton
-                          aria-label="Delete user"
-                          icon={<MdDelete />}
-                          cursor="pointer"
-                          colorScheme="red"
-                          size="sm"
-                          isRound={false}
-                          onClick={() => triggerDelete(x)}
-                        />
-                      </HStack>
-                    </Td>
-                  </Tr>
-                ))}
+                      </Link>
+                      <IconButton
+                        aria-label="Delete user"
+                        icon={<MdDelete />}
+                        cursor="pointer"
+                        colorScheme="red"
+                        size="sm"
+                        isRound={false}
+                        onClick={() => triggerDelete(x)}
+                      />
+                    </HStack>
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
-        <Pagination data={undefined} />
+        {/* <Pagination data={undefined} /> */}
       </Box>
-      {isOpen && <DeleteModal isOpen={isOpen} onClose={onClose} />}
+      {isOpen && (
+        <DeleteModal
+          isOpen={isOpen}
+          onClose={onClose}
+          id={data?.id}
+          api={null}
+        />
+      )}
     </Box>
   );
 };

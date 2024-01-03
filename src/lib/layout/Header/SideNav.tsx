@@ -6,9 +6,13 @@ import AdminMenu from './AdminMenu';
 import Logout from './Logout';
 import { MdDashboard } from 'react-icons/md';
 import { FaChild, FaRegPaste, FaUsers } from 'react-icons/fa6';
+import { useCookies } from 'next-client-cookies';
 
 function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const cookies = useCookies();
+  const adminCookies = cookies.get('admin') as string;
+  const admin = adminCookies && JSON.parse(adminCookies);
   const openModal = () => {
     setIsOpen(true);
   };
@@ -20,6 +24,7 @@ function SideNav() {
   const openMobileMenu = () => {
     setOpened(!opened);
   };
+  console.log({ admin });
   return (
     <Box
       w={['80%', '16%']}
@@ -55,8 +60,8 @@ function SideNav() {
         w="full"
       >
         <AdminMenu text="Dashboard" url="/dashboard" icon={MdDashboard} />
-        <AdminMenu text="Birth Records" url="/birth-records" icon={FaChild} />
-        <AdminMenu text="Diagnosis" url="/diagnosis" icon={FaRegPaste} />
+        <AdminMenu text="Infant Records" url="/infant-records" icon={FaChild} />
+        {/* <AdminMenu text="Diagnosis" url="/diagnosis" icon={FaRegPaste} /> */}
         <AdminMenu text="Users" url="/users" icon={FaUsers} />
         <Logout />
       </VStack>
