@@ -80,11 +80,12 @@ export const AddBirthRecord = ({
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (value: any) => {
+    isEdit && (value.guardianId = data?.guardianId);
     try {
       const res = isEdit
-        ? await UserService.postApiUserUpdateInfant({ requestBody: data })
-        : await UserService.postApiUserAddInfant({ requestBody: data });
+        ? await UserService.postApiUserUpdateInfant({ requestBody: value })
+        : await UserService.postApiUserAddInfant({ requestBody: value });
       if (res.success) {
         toast.success('Success');
         router.push('/infant-records');
