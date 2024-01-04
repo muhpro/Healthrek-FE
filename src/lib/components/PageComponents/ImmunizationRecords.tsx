@@ -26,6 +26,7 @@ import { AddImmunizationRecord } from './AddImmunizationRecord';
 const ImmunizationRecords = ({
   records,
   infants,
+  vaccines,
   teams,
   id,
 }: {
@@ -33,6 +34,7 @@ const ImmunizationRecords = ({
   infants: any;
   teams: any;
   id: any;
+  vaccines: any;
 }) => {
   console.log({ records });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -145,6 +147,7 @@ const ImmunizationRecords = ({
           setData={setData}
           isEdit={isEdit}
           id={id}
+          vaccines={vaccines}
         />
       )}
     </Box>

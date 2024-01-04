@@ -40,7 +40,8 @@ export interface IReceiptProps{
 }
 
 export interface IPageProps{
-  searchParams: any
+  searchParams?: any
+  params?: any
 }
 export interface UserProfile{
   firstName: string;

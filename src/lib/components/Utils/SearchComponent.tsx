@@ -7,8 +7,9 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import React, { SetStateAction, useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
+import { BsSearch, BsX } from 'react-icons/bs';
 import useQueryParams from '../Utils/CustomHooks/useQueryParams';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface SearchProps {
   border?: boolean;
@@ -22,14 +23,18 @@ function SearchComponent({
 }: SearchProps) {
   const { queryParams, setQueryParams } = useQueryParams();
   const [searchTerm, setSearchTerm] = useState<any>(queryParams.get('search'));
-  const getSearchedResult = async () => {
+  // const getSearchedResult = async () => {
+  //   setQueryParams({ search: searchTerm });
+  // };
+  const debounced = useDebouncedCallback((search: any) => {
+    setSearchTerm(search);
     setQueryParams({ search: searchTerm });
-  };
-  const handleKeyPress = (e: any) => {
-    if (e.key === 'Enter') {
-      getSearchedResult();
-    }
-  };
+  }, 500);
+  // const handleKeyPress = (e: any) => {
+  //   if (e.key === 'Enter') {
+  //     getSearchedResult();
+  //   }
+  // };
   const clearSearch = () => {
     setSearchTerm('');
     setQueryParams({ search: '' });
@@ -41,15 +46,17 @@ function SearchComponent({
         w="42px"
         children={<BsSearch color="rgba(0, 0, 0, 0.4)" />}
       />
-      <Tooltip label="Press Enter to Search" hasArrow placement="auto-start" >
+      <Tooltip label="Search using name" hasArrow placement="auto-start">
         <Input
           type="text"
           placeholder="Search"
           height="2.5rem"
+          // onChange={(e: { target: { value: SetStateAction<string> } }) =>
+          //   setSearchTerm(e.target.value)
+          // }
           onChange={(e: { target: { value: SetStateAction<string> } }) =>
-            setSearchTerm(e.target.value)
+            debounced(e.target.value)
           }
-          onKeyDown={handleKeyPress}
           value={searchTerm}
           _placeholder={{
             fontSize: '14px',
@@ -69,11 +76,11 @@ function SearchComponent({
           }}
         />
       </Tooltip>
-      {/* {searchTerm !== '' && (
+      {searchTerm !== '' && (
         <InputRightElement h="42px" w="42px" onClick={clearSearch}>
-          <Icon as={BsSearch} />
+          <Icon as={BsX} />
         </InputRightElement>
-      )} */}
+      )}
     </InputGroup>
   );
 }

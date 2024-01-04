@@ -1,9 +1,10 @@
 import React from 'react';
 import { ViewBirthRecord } from '~/lib/components/PageComponents/ViewBirthRecord';
+import { IPageProps } from '~/lib/components/Schemas';
 import { withPageAuth } from '~/lib/components/Utils/withPageAuth';
 import { HealthService, UserService } from '~/services';
 
-async function getData(id: string) {
+async function getData(id: string, search: any) {
   try {
     const result = await UserService.getApiUserInfants1({ id });
     const medicals = await HealthService.getApiHealthConsultationMedicalHistory(
@@ -17,8 +18,9 @@ async function getData(id: string) {
     const immunization = await HealthService.getApiHealthImmunization({
       infantId: id,
     });
-    const allInfants = await UserService.getApiUserInfants();
-    const allTeams = await UserService.getApiUserListUsers();
+    const vaccines = await HealthService.getApiHealthVaccines();
+    const allInfants = await UserService.getApiUserInfants({ search });
+    const allTeams = await UserService.getApiUserListUsers({});
     if (
       result.success &&
       medicals.success &&
@@ -32,6 +34,7 @@ async function getData(id: string) {
         immunization: immunization.data,
         allInfants: allInfants.data,
         allTeams: allTeams.data,
+        vaccines: vaccines.data,
       };
     }
     return {
@@ -41,14 +44,16 @@ async function getData(id: string) {
       immunization: [],
       allInfants: [],
       allTeams: [],
+      vaccines: [],
     };
   } catch (error) {
     console.log({ error });
   }
 }
-const page = withPageAuth(async ({ params }: any) => {
+const page = withPageAuth(async ({ searchParams, params }: IPageProps) => {
   const { id } = params;
-  const data = await getData(id);
+  const { search } = searchParams;
+  const data = await getData(id, search);
   return <ViewBirthRecord records={data} id={id} />;
 });
 

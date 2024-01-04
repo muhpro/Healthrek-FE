@@ -10,6 +10,9 @@ export default function TopNav() {
   const cookies = useCookies();
   const adminCookies = cookies.get('admin') as string;
   const admin = adminCookies && JSON.parse(adminCookies);
+  function isAlphanumeric(str: any) {
+    return /^[a-zA-Z0-9\s]+$/.test(str) && /\d/.test(str);
+  }
   const pageTitle = pathname.split('/')?.at(-1)?.replaceAll('-', ' ');
 
   return (
@@ -25,7 +28,7 @@ export default function TopNav() {
       zIndex="100"
     >
       <Text fontSize="22px" fontWeight="bold" textTransform="capitalize">
-        {pageTitle}
+        {isAlphanumeric(pageTitle) ? 'User Record' : pageTitle}
       </Text>
       <Flex align="center">
         <Text fontWeight="600" fontSize="1rem" pr=".8rem">

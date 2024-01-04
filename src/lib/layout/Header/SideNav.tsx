@@ -59,10 +59,14 @@ function SideNav() {
         px="1rem"
         w="full"
       >
-        <AdminMenu text="Dashboard" url="/dashboard" icon={MdDashboard} />
+        {admin?.role == 'Super Admin' && (
+          <AdminMenu text="Dashboard" url="/dashboard" icon={MdDashboard} />
+        )}
         <AdminMenu text="Infant Records" url="/infant-records" icon={FaChild} />
         {/* <AdminMenu text="Diagnosis" url="/diagnosis" icon={FaRegPaste} /> */}
-        <AdminMenu text="Users" url="/users" icon={FaUsers} />
+        {admin?.role == 'Super Admin' && (
+          <AdminMenu text="Users" url="/users" icon={FaUsers} />
+        )}
         <Logout />
       </VStack>
     </Box>

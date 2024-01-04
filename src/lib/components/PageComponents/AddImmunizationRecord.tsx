@@ -23,6 +23,7 @@ const schema = yup.object().shape({
 export const AddImmunizationRecord = ({
   onClose,
   isOpen,
+  vaccines,
   infants,
   clinicalTeams,
   data,
@@ -32,6 +33,7 @@ export const AddImmunizationRecord = ({
 }: {
   onClose: any;
   isOpen: any;
+  vaccines?: any;
   infants?: any;
   data?: any;
   setData?: any;
@@ -135,8 +137,8 @@ export const AddImmunizationRecord = ({
               register={register}
               options={
                 <>
-                  {['Vaccine', 'Injection']?.map((x: any) => (
-                    <option value={x}>{x}</option>
+                  {vaccines?.map((x: any) => (
+                    <option value={x?.id}>{x?.name}</option>
                   ))}
                 </>
               }

@@ -53,7 +53,9 @@ const Login = () => {
         Cookies.set('token', result.data?.token as string);
         Cookies.set('admin', JSON.stringify(result.data));
         OpenAPI.TOKEN = result.data?.token as string;
-        router.push('/dashboard');
+        router.push(
+          result?.data?.role == 'Super Admin' ? '/dashboard' : 'infant-records'
+        );
         return;
       }
       toast.error(result.message as string);

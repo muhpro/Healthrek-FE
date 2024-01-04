@@ -5,7 +5,7 @@ import { UserService } from '~/services';
 
 async function getData(offset: number, limit: number) {
   try {
-    const result = await UserService.getApiUserListUsers();
+    const result = await UserService.getApiUserListUsers({});
     if (result.success) {
       return result.data;
     }

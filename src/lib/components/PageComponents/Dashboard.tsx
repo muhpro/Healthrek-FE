@@ -25,7 +25,7 @@ import ValueBox from '../Bits/ValueBox';
 //Fixed couple things
 
 function Dashboard({ data }: { data: any }) {
-  const metrics = data?.data;
+  const metrics = data;
   return (
     <VStack spacing="2rem" align="flex-start">
       <Box w="full">
@@ -34,21 +34,29 @@ function Dashboard({ data }: { data: any }) {
             <MiniCards
               label="All Infants Records"
               increase="12%"
-              value={metrics?.allUsers}
+              value={metrics?.infants}
             />
           </GridItem>
           <GridItem colSpan={1}>
             <MiniCards
               label="New Infant Records"
               increase="12%"
-              value={metrics?.newUsers}
+              value={metrics?.infantForTheWeek}
             />
           </GridItem>
           <GridItem colSpan={1}>
-            <MiniCards label="All Diagnosis" increase="12%" value="1,798" />
+            <MiniCards
+              label="Medical Visits"
+              increase="12%"
+              value={metrics?.medicalVisitForTheWeek}
+            />
           </GridItem>
           <GridItem colSpan={1}>
-            <MiniCards label="All Admin" increase="12%" value="1,798" />
+            <MiniCards
+              label="All Users"
+              increase="12%"
+              value={metrics?.admins}
+            />
           </GridItem>
           <GridItem colSpan={3}>
             <Box
@@ -56,20 +64,20 @@ function Dashboard({ data }: { data: any }) {
               fontWeight="semibold"
               borderRadius="6px"
               boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
-              h="20rem"
+              h="25rem"
               padding="1rem 0"
             >
               <Flex justifyContent="space-between" px="1rem" mb="1rem">
-                <Text fontSize="12px">Infant Record Chart</Text>
+                <Text fontSize="12px">Medical Visits Per Day Record Chart</Text>
               </Flex>
               <Box
                 width="full"
-                h="16rem"
+                h="21rem"
                 fontSize=".7rem"
                 px="1rem"
                 position="relative"
               >
-                <LineChart />
+                <LineChart chart={metrics?.medicationVisitsPerDayRecord} />
               </Box>
             </Box>
           </GridItem>
@@ -87,14 +95,14 @@ function Dashboard({ data }: { data: any }) {
               <Flex justifyContent="space-between" px="1rem" mb="1rem">
                 <Text fontSize="12px">Devices</Text>
               </Flex>
-              <Box width="full" h="80%" pl=".5rem">
+              <Box width="full" h="70%" pl=".5rem">
                 <Donut />
               </Box>
             </VStack>
           </GridItem>
         </SimpleGrid>
       </Box>
-      <Box w="full" display='none'>
+      <Box w="full" display="none">
         <SimpleGrid columns={3} gap="1rem">
           <GridItem colSpan={1}>
             <Box

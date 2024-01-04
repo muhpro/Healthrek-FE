@@ -148,6 +148,7 @@ export const ViewBirthRecord = ({
                   infants={records?.allInfants}
                   teams={records?.allTeams}
                   id={id}
+                  vaccines={records?.vaccines}
                 />
               </TabPanel>
             </TabPanels>

@@ -194,10 +194,20 @@ requestBody?: LoginModel,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static getApiUserListUsers(): CancelablePromise<ResponseModel> {
+    public static getApiUserListUsers({
+role,
+search,
+}: {
+role?: string,
+search?: string,
+}): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/list-users',
+            query: {
+                'role': role,
+                'search': search,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -231,10 +241,17 @@ id: string,
      * @returns ResponseModel Success
      * @throws ApiError
      */
-    public static getApiUserInfants(): CancelablePromise<ResponseModel> {
+    public static getApiUserInfants({
+search,
+}: {
+search?: string,
+}): CancelablePromise<ResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/infants',
+            query: {
+                'search': search,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -278,6 +295,21 @@ id: string,
             path: {
                 'id': id,
             },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns ResponseModel Success
+     * @throws ApiError
+     */
+    public static getApiUserDashboard(): CancelablePromise<ResponseModel> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/User/dashboard',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

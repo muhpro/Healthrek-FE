@@ -91,17 +91,16 @@ export const options = {
   },
 };
 
-const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+export default function LineChart({ chart }: { chart: any }) {
+  const labels = chart?.map((x: any) => x?.day.slice('0,3'));
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      data: [0, 400, 900, 1700, 4000, 1000, 2000],
-    },
-  ],
-};
-
-export default function LineChart() {
+  const data = {
+    labels,
+    datasets: [
+      {
+        data: chart?.map((x: any) => x?.visits),
+      },
+    ],
+  };
   return <Chart options={options as any} data={data} />;
 }

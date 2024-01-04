@@ -4,9 +4,15 @@ import { UserWrapper } from '~/lib/components/PageComponents/UsersTab/UserWrappe
 import { withPageAuth } from '~/lib/components/Utils/withPageAuth';
 import { UserService } from '~/services';
 
-async function getData(offset: number, limit: number, userId: string) {
+async function getData(
+  offset: number,
+  limit: number,
+  userId: string,
+  role: string,
+  search: string
+) {
   try {
-    const result = await UserService.getApiUserListUsers();
+    const result = await UserService.getApiUserListUsers({ role, search });
     const user = await UserService.getApiUser({
       id: userId,
     });
@@ -23,9 +29,9 @@ async function getData(offset: number, limit: number, userId: string) {
 }
 
 const page = withPageAuth(async ({ searchParams, params }: any) => {
-  const { offset, limit } = searchParams;
+  const { offset, limit, role, search } = searchParams;
   const { userId } = params;
-  const data = await getData(offset || 0, limit || 10, userId);
+  const data = await getData(offset || 0, limit || 10, userId, role, search);
   return (
     <UserWrapper
       allUsers={data?.allUsers}
@@ -34,6 +40,7 @@ const page = withPageAuth(async ({ searchParams, params }: any) => {
       singleUser={data?.singleUser}
       tabs={['profile', 'permissions', 'add-admin']}
       route="users"
+      searchable
     >
       <Profile user={data?.singleUser as any} />
     </UserWrapper>
