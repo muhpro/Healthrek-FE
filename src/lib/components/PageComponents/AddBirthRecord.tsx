@@ -81,10 +81,11 @@ export const AddBirthRecord = ({
   });
 
   const onSubmit = async (value: any) => {
-    isEdit && (value.guardianId = data?.guardianId);
     try {
       const res = isEdit
-        ? await UserService.postApiUserUpdateInfant({ requestBody: value })
+        ? await UserService.postApiUserUpdateInfant({
+            requestBody: { ...value, guardianId: data?.guardianId },
+          })
         : await UserService.postApiUserAddInfant({ requestBody: value });
       if (res.success) {
         toast.success('Success');
