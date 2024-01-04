@@ -89,7 +89,7 @@ export const AddBirthRecord = ({
         : await UserService.postApiUserAddInfant({ requestBody: value });
       if (res.success) {
         toast.success('Success');
-        router.push('/infant-records');
+        router.push(isEdit ? `/infant-records/${data?.id}` : '/infant-records');
         return;
       }
       toast.error(res?.message as string);
