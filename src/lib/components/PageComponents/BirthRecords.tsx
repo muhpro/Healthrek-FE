@@ -40,6 +40,7 @@ export const BirthRecords = ({ records }: { records: any }) => {
     setData(value);
     onOpen();
   };
+  console.log({ records });
 
   return (
     <Box>
@@ -76,7 +77,7 @@ export const BirthRecords = ({ records }: { records: any }) => {
                     name={dayjs(x?.dateOfBirth).format('DD/MM/YYYY')}
                   />
                   <TableData name={x?.modeOfDelivery} />
-                  <TableData name={x?.guardian?.gestationWeek} />
+                  <TableData name={x?.gestationWeek} />
                   {/* <TableData name={x?.guardian?.city} /> */}
                   <Td>
                     <HStack gap="1rem">

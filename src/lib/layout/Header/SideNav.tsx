@@ -24,7 +24,7 @@ function SideNav() {
   const openMobileMenu = () => {
     setOpened(!opened);
   };
-  console.log({ admin });
+  // console.log({ admin });
   return (
     <Box
       w={['80%', '16%']}

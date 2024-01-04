@@ -94,7 +94,7 @@ function Dashboard({ data }: { data: any }) {
           </GridItem>
         </SimpleGrid>
       </Box>
-      <Box w="full">
+      <Box w="full" display='none'>
         <SimpleGrid columns={3} gap="1rem">
           <GridItem colSpan={1}>
             <Box
