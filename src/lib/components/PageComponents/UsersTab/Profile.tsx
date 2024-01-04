@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { InfoWrapper } from '../../Utils/MiniComponents/InfoWrapper';
 import toast from 'react-hot-toast';
 import { UserService } from '~/services';
+import { useState } from 'react';
 
 interface ProfileType {
   user: any | undefined;
@@ -11,19 +12,23 @@ interface ProfileType {
 
 function Profile({ user }: ProfileType) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const deactivateAdmin = async (isActive: boolean) => {
+    setIsLoading(true);
     try {
       const res = await UserService.postApiUserToggleActive({
         isActive,
         userId: user?.id,
       });
       if (res.success) {
+        setIsLoading(false);
         toast.success('Action Successful');
         router.refresh();
         return;
       }
     } catch (error: any) {
+      setIsLoading(false);
       toast.error(error?.message || error?.body?.message);
     }
   };
@@ -60,6 +65,7 @@ function Profile({ user }: ProfileType) {
           borderRadius="4px"
           h="2.8rem"
           px="3rem"
+          isLoading={isLoading}
           onClick={() => deactivateAdmin(!user?.isActive)}
         >
           {user?.isActive ? 'Deactivate' : 'Activate'} Admin

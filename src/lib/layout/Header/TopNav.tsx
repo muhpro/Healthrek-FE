@@ -31,7 +31,12 @@ export default function TopNav() {
         {isAlphanumeric(pageTitle) ? 'User Record' : pageTitle}
       </Text>
       <Flex align="center">
-        <Text fontWeight="600" fontSize="1rem" pr=".8rem">
+        <Text
+          fontWeight="600"
+          fontSize="1rem"
+          pr=".8rem"
+          display={['none', 'block']}
+        >
           {`Hi, ${admin ? admin?.fullName.split(' ').at(0) : 'User'}`}
         </Text>
         <Circle

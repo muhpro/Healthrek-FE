@@ -80,26 +80,31 @@ export const BirthRecords = ({ records }: { records: any }) => {
                   <TableData name={x?.gestationWeek} />
                   {/* <TableData name={x?.guardian?.city} /> */}
                   <Td>
-                    <HStack gap="1rem">
+                    <HStack gap="1rem" ml="-1rem">
                       <Link passHref href={`/infant-records/${x.id}`}>
                         <IconButton
-                          aria-label="Edit user"
+                          aria-label="View user"
                           icon={<IoMdEye />}
                           cursor="pointer"
-                          colorScheme="blue"
+                          colorScheme="blackAlpha"
                           size="sm"
                           isRound={false}
                         />
                       </Link>
-                      <IconButton
-                        aria-label="Delete user"
-                        icon={<MdDelete />}
-                        cursor="pointer"
-                        colorScheme="red"
-                        size="sm"
-                        isRound={false}
-                        onClick={() => triggerDelete(x)}
-                      />
+                      <Link
+                        passHref
+                        href={`/infant-records/${x.id}/edit-infant-record`}
+                      >
+                        <IconButton
+                          aria-label="Edit user"
+                          icon={<MdEdit />}
+                          cursor="pointer"
+                          colorScheme="brand"
+                          size="sm"
+                          isRound={false}
+                          // onClick={() => triggerDelete(x)}
+                        />
+                      </Link>
                     </HStack>
                   </Td>
                 </Tr>

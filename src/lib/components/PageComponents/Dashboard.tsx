@@ -14,6 +14,7 @@ import {
   Image,
   VStack,
   HStack,
+  Grid,
 } from '@chakra-ui/react';
 import React from 'react';
 import { BarChart } from '../Bits/BarChart';
@@ -28,82 +29,69 @@ function Dashboard({ data }: { data: any }) {
   const metrics = data;
   return (
     <VStack spacing="2rem" align="flex-start">
-      <Box w="full">
-        <SimpleGrid columns={4} gap="1rem">
-          <GridItem colSpan={1}>
-            <MiniCards
-              label="All Infants Records"
-              increase="12%"
-              value={metrics?.infants}
-            />
-          </GridItem>
-          <GridItem colSpan={1}>
-            <MiniCards
-              label="New Infant Records"
-              increase="12%"
-              value={metrics?.infantForTheWeek}
-            />
-          </GridItem>
-          <GridItem colSpan={1}>
-            <MiniCards
-              label="Medical Visits"
-              increase="12%"
-              value={metrics?.medicalVisitForTheWeek}
-            />
-          </GridItem>
-          <GridItem colSpan={1}>
-            <MiniCards
-              label="All Users"
-              increase="12%"
-              value={metrics?.admins}
-            />
-          </GridItem>
-          <GridItem colSpan={3}>
+      <VStack w="full" align="flex-start" gap="1rem">
+        <Grid templateColumns={['1fr', 'repeat(4, 1fr)']} gap="1rem" w="full">
+          <MiniCards
+            label="All Infants Records"
+            increase="12%"
+            value={metrics?.infants}
+          />
+          <MiniCards
+            label="New Infant Records"
+            increase="12%"
+            value={metrics?.infantForTheWeek}
+          />
+
+          <MiniCards
+            label="Medical Visits"
+            increase="12%"
+            value={metrics?.medicalVisitForTheWeek}
+          />
+          <MiniCards label="All Users" increase="12%" value={metrics?.admins} />
+        </Grid>
+        <Grid templateColumns={['1fr', '3fr 1fr']} gap="1rem" w="full">
+          <Box
+            bgColor="white"
+            fontWeight="semibold"
+            borderRadius="6px"
+            boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
+            h="25rem"
+            padding="1rem 0"
+          >
+            <Flex justifyContent="space-between" px="1rem" mb="1rem">
+              <Text fontSize="12px">Medical Visits Per Day Record Chart</Text>
+            </Flex>
             <Box
-              bgColor="white"
-              fontWeight="semibold"
-              borderRadius="6px"
-              boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
-              h="25rem"
-              padding="1rem 0"
+              width="full"
+              h="21rem"
+              fontSize=".7rem"
+              px="1rem"
+              position="relative"
             >
-              <Flex justifyContent="space-between" px="1rem" mb="1rem">
-                <Text fontSize="12px">Medical Visits Per Day Record Chart</Text>
-              </Flex>
-              <Box
-                width="full"
-                h="21rem"
-                fontSize=".7rem"
-                px="1rem"
-                position="relative"
-              >
-                <LineChart chart={metrics?.medicationVisitsPerDayRecord} />
-              </Box>
+              <LineChart chart={metrics?.medicationVisitsPerDayRecord} />
             </Box>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <VStack
-              bgColor="white"
-              fontWeight="semibold"
-              borderRadius="6px"
-              boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
-              h="100%"
-              padding="1rem 0"
-              overflow="hidden"
-              // justify="center"
-            >
-              <Flex justifyContent="space-between" px="1rem" mb="1rem">
-                <Text fontSize="12px">Devices</Text>
-              </Flex>
-              <Box width="full" h="70%" pl=".5rem">
-                <Donut />
-              </Box>
-            </VStack>
-          </GridItem>
-        </SimpleGrid>
-      </Box>
+          </Box>
+          <VStack
+            bgColor="white"
+            fontWeight="semibold"
+            borderRadius="6px"
+            boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
+            h="100%"
+            padding="1rem 0"
+            overflow="hidden"
+            // justify="center"
+          >
+            <Flex justifyContent="space-between" px="1rem" mb="1rem">
+              <Text fontSize="12px">Devices</Text>
+            </Flex>
+            <Box width="full" h="70%" pl=".5rem">
+              <Donut />
+            </Box>
+          </VStack>
+        </Grid>
+      </VStack>
       <Box w="full" display="none">
-        <SimpleGrid columns={3} gap="1rem">
+        <SimpleGrid columns={[1, 3]} gap="1rem">
           <GridItem colSpan={1}>
             <Box
               bgColor="white"

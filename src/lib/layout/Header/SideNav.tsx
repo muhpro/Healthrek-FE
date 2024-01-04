@@ -31,7 +31,7 @@ function SideNav() {
       pos="fixed"
       h="full"
       bgColor="brand.100"
-      zIndex={'6'}
+      zIndex={'102'}
       borderRadius="8px 4px 22px rgba(0, 0, 0, 0.2)"
       transition="all .3s ease-in-out"
       left={[opened ? '-100%' : '0', 'unset']}

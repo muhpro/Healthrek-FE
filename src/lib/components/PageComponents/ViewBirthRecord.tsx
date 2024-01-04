@@ -31,26 +31,29 @@ export const ViewBirthRecord = ({
   const userGuardian = records?.userRecord?.guardian;
   return (
     <Box>
-      <Flex
+      <Grid
         bgColor="white"
         borderRadius="8px"
         p="1rem"
-        justifyContent="space-between"
-        align="center"
+        templateColumns={['repeat(2, 1fr)', 'repeat(4, 1fr)']}
+        w="full"
+        gap="1rem"
       >
         <InfoWrapper title="First Name" value={userInfo?.firstName} />
         <InfoWrapper title="Last Name" value={userInfo?.lastName} />
         <InfoWrapper title="Gender" value={userInfo?.gender} />
-        <Link passHref href={`/infant-records/${id}/edit-infant-record`}>
-          <ButtonComponent
-            content="Edit Record"
-            type="button"
-            w={['80%', 'fit-content']}
-          />
-        </Link>
-      </Flex>
-      <Flex w="full" gap="1.5rem" mt="1.5rem">
-        <VStack w="25%" align="flex-start" gap="1.5rem">
+        <Flex justify={['flex-start', 'flex-end']}>
+          <Link passHref href={`/infant-records/${id}/edit-infant-record`}>
+            <ButtonComponent
+              content="Edit Record"
+              type="button"
+              w={['fit-content', 'fit-content']}
+            />
+          </Link>
+        </Flex>
+      </Grid>
+      <Flex w="full" gap="1.5rem" mt="1.5rem" flexDir={['column', 'row']}>
+        <VStack w={['full', '25%']} align="flex-start" gap="1.5rem">
           <Box bgColor="white" borderRadius="8px" p="1rem" w="full">
             <VStack align="flex-start" gap="1rem" w="full">
               <Text fontWeight={600} fontSize="1.1rem">
@@ -118,7 +121,7 @@ export const ViewBirthRecord = ({
             </VStack>
           </Box>
         </VStack>
-        <Box w="75%">
+        <Box w={['full', '75%']}>
           <Tabs bgColor="white" borderRadius="8px" p="1rem" w="full">
             <TabList>
               <CustomTab>Medical Records</CustomTab>

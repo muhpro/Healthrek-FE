@@ -5,9 +5,10 @@ import SinglePermission from './SinglePermisiion';
 
 export const AdminPermissions = () => {
   return (
-    <VStack mt="1rem" w="50%" spacing={1}>
+    <VStack mt="1rem" w={['100%', '50%']} gap="1rem">
       <SinglePermission action="View analytics" />
       <SinglePermission action="View user details" />
+      <SinglePermission action="View dashboard" />
       {/* <SinglePermission action="View loans" />
       <SinglePermission action="View admin users" />
       <SinglePermission action="View transactions" />

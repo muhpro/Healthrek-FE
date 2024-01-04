@@ -76,7 +76,7 @@ function SearchComponent({
           }}
         />
       </Tooltip>
-      {searchTerm !== '' && (
+      {searchTerm?.length > 0 && (
         <InputRightElement h="42px" w="42px" onClick={clearSearch}>
           <Icon as={BsX} />
         </InputRightElement>
