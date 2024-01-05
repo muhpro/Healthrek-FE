@@ -82,10 +82,15 @@ function Dashboard({ data }: { data: any }) {
             // justify="center"
           >
             <Flex justifyContent="space-between" px="1rem" mb="1rem">
-              <Text fontSize="12px">Devices</Text>
+              <Text fontSize="12px">Infants by Gender Records</Text>
             </Flex>
             <Box width="full" h="70%" pl=".5rem">
-              <Donut />
+              <Donut
+                chart={{
+                  female: metrics?.noOfFemaleInfant,
+                  male: metrics?.noOfMaleInfant,
+                }}
+              />
             </Box>
           </VStack>
         </Grid>

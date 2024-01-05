@@ -52,19 +52,18 @@ export const options = {
   cutout: '45%',
 };
 
-const labels = [`IOS ${'81K'}`, 'Android', 'Others'];
+export default function Donut({ chart }: { chart: any }) {
+  const labels = [`Female ${chart?.female}`, `Male ${chart?.male}`];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      data: [80000, 30000, 20000],
-      backgroundColor: ['#000', '#e3bc6a', '#2fdf84'],
-      hoverOffset: 4,
-    },
-  ],
-};
-
-export default function Donut() {
+  const data = {
+    labels,
+    datasets: [
+      {
+        data: [chart?.female, chart?.male],
+        backgroundColor: ['#e3bc6a', '#2fdf84'],
+        hoverOffset: 4,
+      },
+    ],
+  };
   return <Chart options={options as any} data={data} />;
 }

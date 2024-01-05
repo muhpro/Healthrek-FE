@@ -12,7 +12,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
-  const hideSideAndTopNav = pathname.includes('/login');
+  const hideSideAndTopNav =
+    pathname.includes('/login') || pathname.startsWith('/password');
   return (
     <Box margin="0 auto" w="full" transition="0.5s ease-out">
       {hideSideAndTopNav ? (

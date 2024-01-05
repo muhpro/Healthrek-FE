@@ -49,6 +49,7 @@ const ResetPassword = () => {
       });
       if (result.success) {
         toast.success(result.message as string);
+        setShowSuccess(true);
         return;
       }
       toast.error(result.message as string);
@@ -63,18 +64,22 @@ const ResetPassword = () => {
       <Grid templateColumns={['repeat(1,1fr)', 'repeat(2,1fr)']} gap={5}>
         <Flex
           w={['90%', '100%', '40vw']}
-          h={['100%', '100%', '60vh']}
+          h={['100%', '100%', '90vh']}
           justifyContent="center"
           display={['none', 'flex']}
           alignItems="center"
           textAlign="center"
           mx="1.3rem"
           borderRadius="8px"
+          bgColor="brand.100"
+          p="1rem"
         >
           <Image
             src="/assets/imga.jpg"
+            h="full"
+            w="full"
             my={['1rem', '2rem !important', '5rem']}
-            objectFit="contain"
+            objectFit="cover"
           />
         </Flex>
 

@@ -11,6 +11,7 @@ interface Props {
   type?: any;
   variant?: any;
   h?: any;
+  isDisabled?: any;
 }
 
 const ButtonComponent = ({
@@ -24,6 +25,7 @@ const ButtonComponent = ({
   w = ['fit-content', 'full'],
   type = 'button',
   h = '3.2rem',
+  isDisabled,
 }: Props) => {
   return (
     <Button
@@ -32,7 +34,7 @@ const ButtonComponent = ({
       h={h}
       variant={variant}
       textTransform="capitalize"
-      // disabled={isValid ? false : true}
+      isDisabled={isDisabled}
       isLoading={loading}
       bgColor={bg}
       color={color}

@@ -24,10 +24,20 @@ function AddNewAdmin() {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors, isValid, isSubmitting },
   } = useForm<ClinicalTeamModel>({
     resolver: yupResolver(schema),
     mode: 'all',
+    defaultValues: {
+      clinicalTeamType: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      phone: '',
+      role: '',
+    },
   });
 
   const onSubmit = async (data: ClinicalTeamModel) => {
@@ -38,6 +48,7 @@ function AddNewAdmin() {
       console.log({ result });
       if (result.success) {
         toast.success(result.message as string);
+        reset();
         router.refresh();
         return;
       }

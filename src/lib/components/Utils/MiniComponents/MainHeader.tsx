@@ -6,7 +6,7 @@ export const MainHeader = ({
   size = ['1.155rem', '60px'],
   text,
   align = 'center',
-  color = 'brand.300',
+  color = 'brand.100',
   w = 'full',
   fw = '600',
   lh = ['normal', '68px'],

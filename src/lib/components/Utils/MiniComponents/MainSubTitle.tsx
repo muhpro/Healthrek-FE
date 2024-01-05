@@ -6,7 +6,7 @@ export const MainSubTitle = ({
   size = ['0.87rem', '27px'],
   text,
   align = 'center',
-  color = 'brand.300',
+  color = 'black',
   w = 'full',
   lh = ['normal', '38px'],
   fw = 400,

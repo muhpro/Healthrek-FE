@@ -17,9 +17,9 @@ function MiniCards({ label, increase, value }: cardType) {
     >
       <Flex justifyContent="space-between" mb=".2rem" alignItems="center">
         <Text fontSize="12px">{label}</Text>
-        <Text color="#18C13A" fontSize="8px">
+        {/* <Text color="#18C13A" fontSize="8px">
           {increase}
-        </Text>
+        </Text> */}
       </Flex>
       <Text fontSize="20px">{value}</Text>
     </Box>
