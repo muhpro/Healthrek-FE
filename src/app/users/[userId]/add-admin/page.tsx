@@ -36,9 +36,9 @@ const page = withPageAuth(async ({ searchParams, params }: any) => {
     <UserWrapper
       allUsers={data?.allUsers}
       userId={userId}
-      currentTab={'add-admin'}
+      currentTab={'add-user'}
       singleUser={data?.singleUser}
-      tabs={['profile', 'permissions', 'add-admin']}
+      tabs={['profile', 'permissions', 'add-user']}
       route="users"
       searchable
     >

@@ -23,6 +23,7 @@ import SearchComponent from '../Utils/SearchComponent';
 import { HealthService } from '~/services';
 import { AddMedicalRecord } from './AddMedicalRecord';
 import { ViewMedicalModal } from './ViewMedicalModal';
+import { useCookies } from 'next-client-cookies';
 
 const MedicalRecords = ({
   records,
@@ -40,6 +41,9 @@ const MedicalRecords = ({
   const { isOpen: opend, onOpen: opened, onClose: closed } = useDisclosure();
   const [data, setData] = useState<any>();
   const [isEdit, setIsEdit] = useState(false);
+  const cookies = useCookies();
+  const adminCookies = cookies.get('admin') as string;
+  const admin = adminCookies && JSON.parse(adminCookies);
   const triggerDelete = (value: any) => {
     setData(value);
     onOpen();
@@ -73,17 +77,21 @@ const MedicalRecords = ({
   return (
     <Box>
       <Flex justify="flex-start">
-        <ButtonComponent
-          content="Add New Record"
-          type="button"
-          w={['full', 'fit-content']}
-          onClick={() => {
-            setIsEdit(false);
-            opens();
-          }}
-          h="2.6rem"
-          bg="black"
-        />
+        {
+          admin?.role == 'Doctor' && (
+          <ButtonComponent
+            content="Add New Record"
+            type="button"
+            w={['full', 'fit-content']}
+            onClick={() => {
+              setIsEdit(false);
+              opens();
+            }}
+            h="2.6rem"
+            bg="black"
+          />
+        )}
+        
       </Flex>
 
       <Box w="full" bgColor="white" borderRadius="6px" mt="1rem">

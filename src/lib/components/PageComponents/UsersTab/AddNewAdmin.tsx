@@ -76,7 +76,7 @@ function AddNewAdmin() {
         fontWeight="semibold"
         px={5}
       >
-        Add Admin
+        Add User
       </Text> */}
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <VStack spacing="1rem" alignItems="flex-start" w="100%">
@@ -133,16 +133,16 @@ function AddNewAdmin() {
               name="role"
               error={errors.role}
               register={register}
-              placeholder="Super Admin"
+              placeholder="Doctor"
               options={
                 <>
-                  {['Super Admin', 'Clinical Team', 'Guardian'].map((x) => (
+                  {['Doctor', 'Nurse', 'Midwife', 'Clinical Team', 'Guardian', 'Super Admin'].map((x) => (
                     <option value={x}>{x}</option>
                   ))}
                 </>
               }
             />
-            <PrimarySelect<ClinicalTeamModel>
+            {/* <PrimarySelect<ClinicalTeamModel>
               label="Clinical Team"
               name="clinicalTeamType"
               error={errors.clinicalTeamType}
@@ -155,7 +155,7 @@ function AddNewAdmin() {
                   ))}
                 </>
               }
-            />
+            /> */}
             <Button
               w="full"
               mt="1.5rem"

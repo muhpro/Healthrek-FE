@@ -38,7 +38,7 @@ const page = withPageAuth(async ({ searchParams, params }: any) => {
       userId={userId}
       currentTab={'profile'}
       singleUser={data?.singleUser}
-      tabs={['profile', 'permissions', 'add-admin']}
+      tabs={['profile', 'permissions', 'add-user']}
       route="users"
       searchable
     >

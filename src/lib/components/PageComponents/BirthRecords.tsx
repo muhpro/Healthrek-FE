@@ -23,17 +23,26 @@ import DeleteModal from '../Utils/MiniComponents/DeleteModal';
 import SearchComponent from '../Utils/SearchComponent';
 import Pagination from '../Utils/MiniComponents/Pagination';
 import { IoMdEye } from 'react-icons/io';
+import CsvDownloader from 'react-csv-downloader';
 
 export const BirthRecords = ({ records }: { records: any }) => {
   const thead = [
-    'First Name',
-    'Last Name',
-    'Gender',
-    'DOB',
-    'Mode of Delivery',
-    'Gestation Week',
-    'Action',
+    {displayName : 'First Name', id: 'firstName'},
+    {displayName: 'Last Name', id: 'lastName'},
+    {displayName: 'Gender', id: 'gender'},
+    {displayName: 'DOB', id: 'dateOfBirth'},
+    {displayName: 'Mode of Delivery', id: 'modeOfDelivery'},
+    {displayName: 'Gestation Week', id: 'gestationWeek'}
   ];
+
+  const newHead = [ ...thead, {displayName: "Action", id: "action"} ];
+
+
+  // const datas = records.map((x) => (
+  //   firstName : x.firstName,
+  //   lastName : 
+  // ))
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<any>();
   const triggerDelete = (value: any) => {
@@ -44,7 +53,7 @@ export const BirthRecords = ({ records }: { records: any }) => {
 
   return (
     <Box>
-      <Flex>
+      <Flex gap="1.5rem">
         <Link passHref href="/infant-records/add-infant-record">
           <ButtonComponent
             content="Add New Record"
@@ -52,6 +61,19 @@ export const BirthRecords = ({ records }: { records: any }) => {
             w={['full', 'fit-content']}
           />
         </Link>
+        <CsvDownloader
+          filename="infant records"
+          extension=".csv"
+          columns={thead}
+          datas={records}
+         >
+          <ButtonComponent
+            content="Download Record"
+            type="button"
+            w={['full', 'fit-content']}
+            bg={"black"}
+          />
+         </CsvDownloader>
       </Flex>
 
       <Box w="full" p="1rem" bgColor="white" borderRadius="6px" mt="1.5rem">
@@ -62,8 +84,8 @@ export const BirthRecords = ({ records }: { records: any }) => {
           <Table>
             <Thead>
               <Tr>
-                {thead.map((x: string, i: any) => (
-                  <TableHead title={x} key={i} />
+                {newHead.map((x: any, i: any) => (
+                  <TableHead title={x.displayName} key={i} />
                 ))}
               </Tr>
             </Thead>
