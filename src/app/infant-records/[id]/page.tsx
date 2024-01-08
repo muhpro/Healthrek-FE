@@ -20,7 +20,7 @@ async function getData(id: string, search: any) {
     });
     const vaccines = await HealthService.getApiHealthVaccines();
     const allInfants = await UserService.getApiUserInfants({ search });
-    const allTeams = await UserService.getApiUserListUsers({});
+    const allTeams = await UserService.getApiUserListUsers({role: 'Clinical Team'});
     if (
       result.success &&
       medicals.success &&
