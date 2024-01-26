@@ -31,7 +31,6 @@ export const ViewBirthRecord = ({
   const userInfo = records?.userRecord;
   const userGuardian = records?.userRecord?.guardian;
   const { user } = useContext(UserContext);
-  console.log({ user });
   const isGuardian = user?.role == 'Guardian';
   return (
     <Box>
