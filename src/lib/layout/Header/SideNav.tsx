@@ -62,7 +62,15 @@ function SideNav() {
         {admin?.role == 'Super Admin' && (
           <AdminMenu text="Dashboard" url="/dashboard" icon={MdDashboard} />
         )}
-        <AdminMenu text="Infant Records" url="/infant-records" icon={FaChild} />
+        <AdminMenu
+          text="Infant Records"
+          url={
+            admin?.role == 'Guardian'
+              ? `/infant-records/${admin?.infantId}`
+              : '/infant-records'
+          }
+          icon={FaChild}
+        />
         {/* <AdminMenu text="Diagnosis" url="/diagnosis" icon={FaRegPaste} /> */}
         {admin?.role == 'Super Admin' && (
           <AdminMenu text="Users" url="/users" icon={FaUsers} />

@@ -7,6 +7,7 @@ import { Chakra as ChakraProvider } from '~/lib/components/Chakra';
 import { Next13ProgressBar } from 'next13-progressbar';
 import { OpenAPI } from '~/services';
 import { Toaster } from 'react-hot-toast';
+import { UserProvider } from '~/lib/components/Utils/Context/UserContext';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const cookies = useCookies();
@@ -17,7 +18,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <CacheProvider>
       <Toaster position="top-right" />
-      <ChakraProvider>{children}</ChakraProvider>
+      <UserProvider>
+        <ChakraProvider>{children}</ChakraProvider>
+      </UserProvider>
       <Next13ProgressBar
         height="4px"
         color="#131313"

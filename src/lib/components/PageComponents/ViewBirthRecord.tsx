@@ -10,7 +10,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { InfoWrapper } from '../Utils/MiniComponents/InfoWrapper';
 import { CustomTab } from '../Utils/MiniComponents/CustomTab';
 import MedicalRecords from './MedicalRecords';
@@ -19,6 +19,7 @@ import Link from 'next/link';
 import ButtonComponent from '../Utils/MiniComponents/ButtonComponent';
 import GrowthRecords from './GrowthRecords';
 import ImmunizationRecords from './ImmunizationRecords';
+import { UserContext } from '../Utils/Context/UserContext';
 
 export const ViewBirthRecord = ({
   records,
@@ -29,13 +30,19 @@ export const ViewBirthRecord = ({
 }) => {
   const userInfo = records?.userRecord;
   const userGuardian = records?.userRecord?.guardian;
+  const { user } = useContext(UserContext);
+  console.log({ user });
+  const isGuardian = user?.role == 'Guardian';
   return (
     <Box>
       <Grid
         bgColor="white"
         borderRadius="8px"
         p="1rem"
-        templateColumns={['repeat(2, 1fr)', 'repeat(4, 1fr)']}
+        templateColumns={[
+          'repeat(2, 1fr)',
+          isGuardian ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+        ]}
         w="full"
         gap="1rem"
       >
@@ -44,11 +51,14 @@ export const ViewBirthRecord = ({
         <InfoWrapper title="Gender" value={userInfo?.gender} />
         <Flex justify={['flex-start', 'flex-end']}>
           <Link passHref href={`/infant-records/${id}/edit-infant-record`}>
-            <ButtonComponent
-              content="Edit Record"
-              type="button"
-              w={['fit-content', 'fit-content']}
-            />
+            {!isGuardian && (
+              <ButtonComponent
+                content="Edit Record"
+                type="button"
+                w={['fit-content', 'fit-content']}
+                isDisabled={isGuardian}
+              />
+            )}
           </Link>
         </Flex>
       </Grid>
@@ -135,6 +145,7 @@ export const ViewBirthRecord = ({
                   infants={records?.allInfants}
                   teams={records?.allTeams}
                   id={id}
+                  isGuardian={isGuardian}
                 />
               </TabPanel>
               <TabPanel>
@@ -143,6 +154,7 @@ export const ViewBirthRecord = ({
                   infants={records?.allInfants}
                   teams={records?.allTeams}
                   id={id}
+                  isGuardian={isGuardian}
                 />
               </TabPanel>
               <TabPanel>
@@ -152,6 +164,7 @@ export const ViewBirthRecord = ({
                   teams={records?.allTeams}
                   id={id}
                   vaccines={records?.vaccines}
+                  isGuardian={isGuardian}
                 />
               </TabPanel>
             </TabPanels>

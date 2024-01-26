@@ -87,6 +87,8 @@ const Login = () => {
           router.push(
             result?.data?.role == 'Super Admin'
               ? '/dashboard'
+              : result?.data?.role == 'Guardian'
+              ? `/infant-records/${result.data?.infantId}`
               : 'infant-records'
           );
         } else {
@@ -98,7 +100,7 @@ const Login = () => {
       toast.error(result.message as string);
       return;
     } catch (err: any) {
-      toast.error(err.message || err.body.message);
+      toast.error(err?.body?.message || err?.message);
     }
   };
   const onSubmits = async (data: EmailVerificationModel) => {
@@ -110,14 +112,14 @@ const Login = () => {
       });
       if (result.success) {
         toast.success('Verification Successful');
-        onOpen();
+        // onOpen();
         setShowVerify(false);
         return;
       }
       toast.error(result.message as string);
       return;
     } catch (err: any) {
-      toast.error(err.message || err.body.message);
+      toast.error(err?.body?.message || err?.message);
     }
   };
 

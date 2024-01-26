@@ -29,12 +29,14 @@ const ImmunizationRecords = ({
   vaccines,
   teams,
   id,
+  isGuardian,
 }: {
   records: any;
   infants: any;
   teams: any;
   id: any;
   vaccines: any;
+  isGuardian: any;
 }) => {
   console.log({ records });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,27 +58,25 @@ const ImmunizationRecords = ({
     setIsEdit(true);
     opens();
   };
-  const thead = [
-    'Infant Name',
-    'Immunization Type',
-    'Date Administered',
-    'Action',
-  ];
+  const thead = ['Infant Name', 'Immunization Type', 'Date Administered'];
+  const theadNoGuard = isGuardian ? thead : [...thead, 'Action'];
 
   return (
     <Box>
       <Flex justify="flex-start">
-        <ButtonComponent
-          content="Add New Record"
-          type="button"
-          w={['full', 'fit-content']}
-          onClick={() => {
-            setIsEdit(false);
-            opens();
-          }}
-          h="2.6rem"
-          bg="black"
-        />
+        {!isGuardian && (
+          <ButtonComponent
+            content="Add New Record"
+            type="button"
+            w={['full', 'fit-content']}
+            onClick={() => {
+              setIsEdit(false);
+              opens();
+            }}
+            h="2.6rem"
+            bg="black"
+          />
+        )}
       </Flex>
 
       <Box w="full" bgColor="white" borderRadius="6px" mt="1rem">
@@ -87,7 +87,7 @@ const ImmunizationRecords = ({
           <Table>
             <Thead>
               <Tr>
-                {thead.map((x: string, i: any) => (
+                {theadNoGuard.map((x: string, i: any) => (
                   <TableHead title={x} key={i} />
                 ))}
               </Tr>
@@ -96,33 +96,39 @@ const ImmunizationRecords = ({
               {records?.map((x: any) => (
                 <Tr>
                   <TableData name={x?.infant?.fullName} />
-                  <TableData name={x?.immunizationType} />
+                  <TableData
+                    name={
+                      vaccines.find((y: any) => y.id == x?.immunizationType)
+                        ?.name
+                    }
+                  />
                   <TableData
                     name={dayjs(x?.dateAdministered).format('DD/MM/YYYY')}
                   />
-
-                  <Td>
-                    <HStack gap="1rem">
-                      <IconButton
-                        aria-label="Edit user"
-                        icon={<MdEdit />}
-                        cursor="pointer"
-                        colorScheme="blue"
-                        size="sm"
-                        isRound={false}
-                        onClick={() => editForm(x)}
-                      />
-                      <IconButton
-                        aria-label="Delete user"
-                        icon={<MdDelete />}
-                        cursor="pointer"
-                        colorScheme="red"
-                        size="sm"
-                        isRound={false}
-                        onClick={() => triggerDelete(x)}
-                      />
-                    </HStack>
-                  </Td>
+                  {!isGuardian && (
+                    <Td>
+                      <HStack gap="1rem">
+                        <IconButton
+                          aria-label="Edit user"
+                          icon={<MdEdit />}
+                          cursor="pointer"
+                          colorScheme="blue"
+                          size="sm"
+                          isRound={false}
+                          onClick={() => editForm(x)}
+                        />
+                        <IconButton
+                          aria-label="Delete user"
+                          icon={<MdDelete />}
+                          cursor="pointer"
+                          colorScheme="red"
+                          size="sm"
+                          isRound={false}
+                          onClick={() => triggerDelete(x)}
+                        />
+                      </HStack>
+                    </Td>
+                  )}
                 </Tr>
               ))}
             </Tbody>

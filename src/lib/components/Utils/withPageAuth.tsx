@@ -6,6 +6,7 @@ export function withPageAuth(gssp: any) {
   return async (context: any) => {
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
+    // const admin = cookieStore.get('admin')?.value;
 
     if (!token) {
       // Redirect to login page

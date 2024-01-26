@@ -30,11 +30,13 @@ const MedicalRecords = ({
   infants,
   teams,
   id,
+  isGuardian,
 }: {
   records: any;
   infants: any;
   teams: any;
   id: any;
+  isGuardian: any;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: open, onOpen: opens, onClose: close } = useDisclosure();
@@ -62,23 +64,15 @@ const MedicalRecords = ({
     'Case Reference',
     'Diagnosis',
     'Medication',
-    // 'Heart Rate',
-    // 'Respiratory Rate',
     'Clinical Team',
     'Date',
-    'Action',
-    // 'Complaints',
-    // 'Physician Examination',
-    // 'Blood Pressure',
-    // 'Temperature',
-    // 'Oxygen Saturation',
   ];
+  const theadNoGuard = isGuardian ? thead : [...thead, 'Action'];
 
   return (
     <Box>
       <Flex justify="flex-start">
-        {
-          admin?.role == 'Doctor' && (
+        {admin?.role == 'Doctor' && (
           <ButtonComponent
             content="Add New Record"
             type="button"
@@ -91,7 +85,6 @@ const MedicalRecords = ({
             bg="black"
           />
         )}
-        
       </Flex>
 
       <Box w="full" bgColor="white" borderRadius="6px" mt="1rem">
@@ -102,7 +95,7 @@ const MedicalRecords = ({
           <Table>
             <Thead>
               <Tr>
-                {thead.map((x: string, i: any) => (
+                {theadNoGuard.map((x: string, i: any) => (
                   <TableHead title={x} key={i} />
                 ))}
               </Tr>
@@ -117,28 +110,30 @@ const MedicalRecords = ({
                   {/* <TableData name={x?.respiratoryRate} /> */}
                   <TableData name={x?.clinicalTeam?.firstName} />
                   <TableData name={dayjs(x?.date).format('DD/MM/YYYY')} />
-                  <Td>
-                    <HStack gap="1rem">
-                      <IconButton
-                        aria-label="Edit user"
-                        icon={<IoMdEye />}
-                        cursor="pointer"
-                        colorScheme="blue"
-                        size="sm"
-                        isRound={false}
-                        onClick={() => viewForm(x)}
-                      />
-                      <IconButton
-                        aria-label="Delete user"
-                        icon={<MdDelete />}
-                        cursor="pointer"
-                        colorScheme="red"
-                        size="sm"
-                        isRound={false}
-                        onClick={() => triggerDelete(x)}
-                      />
-                    </HStack>
-                  </Td>
+                  {!isGuardian && (
+                    <Td>
+                      <HStack gap="1rem">
+                        <IconButton
+                          aria-label="Edit user"
+                          icon={<IoMdEye />}
+                          cursor="pointer"
+                          colorScheme="blue"
+                          size="sm"
+                          isRound={false}
+                          onClick={() => viewForm(x)}
+                        />
+                        <IconButton
+                          aria-label="Delete user"
+                          icon={<MdDelete />}
+                          cursor="pointer"
+                          colorScheme="red"
+                          size="sm"
+                          isRound={false}
+                          onClick={() => triggerDelete(x)}
+                        />
+                      </HStack>
+                    </Td>
+                  )}
                 </Tr>
               ))}
             </Tbody>
