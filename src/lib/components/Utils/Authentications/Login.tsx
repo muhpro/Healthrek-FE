@@ -241,9 +241,9 @@ const Login = () => {
               <Link href="/register"> Sign Up</Link>
             </Text>
           </Flex>
-          <Text color="brand.100" fontWeight="bold">
+          {/* <Text color="brand.100" fontWeight="bold">
             <Link href="/password/reset"> Forgot password</Link>
-          </Text>
+          </Text> */}
         </Stack>
       </Grid>
       {isOpen && <ResetPasswordModal isOpen={isOpen} onClose={onClose} />}
