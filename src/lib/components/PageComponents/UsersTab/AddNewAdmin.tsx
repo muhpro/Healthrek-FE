@@ -136,7 +136,7 @@ function AddNewAdmin() {
               placeholder="Doctor"
               options={
                 <>
-                  {['Doctor', 'Nurse', 'Midwife', 'Clinical Team', 'Guardian', 'Super Admin'].map((x) => (
+                  {['Nurse', 'Midwife', 'Guardian', 'Super Admin'].map((x) => (
                     <option value={x}>{x}</option>
                   ))}
                 </>
