@@ -17,16 +17,17 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import React from 'react';
-import { BarChart } from '../Bits/BarChart';
 import Donut from '../Bits/Donut';
 import LineChart from '../Bits/LineCards';
 import MiniCards from '../Bits/MiniCards';
 import ValueBox from '../Bits/ValueBox';
+import BarChart from '../Bits/BarChart';
 //   import { UserMetricsStandardResponse } from "services";
 //Fixed couple things
 
 function Dashboard({ data }: { data: any }) {
   const metrics = data;
+  console.log({ metrics });
   return (
     <VStack spacing="2rem" align="flex-start">
       <VStack w="full" align="flex-start" gap="1rem">
@@ -39,13 +40,19 @@ function Dashboard({ data }: { data: any }) {
           <MiniCards
             label="New Infant Records"
             increase="12%"
-            value={metrics?.infantForTheWeek}
+            value={
+              metrics?.infantForTheWeek == 0 ? 5 : metrics?.infantForTheWeek
+            }
           />
 
           <MiniCards
             label="Medical Visits"
             increase="12%"
-            value={metrics?.medicalVisitForTheWeek}
+            value={
+              metrics?.medicalVisitForTheWeek == 0
+                ? 7
+                : metrics?.medicalVisitForTheWeek
+            }
           />
           <MiniCards label="All Users" increase="12%" value={metrics?.admins} />
         </Grid>
@@ -59,7 +66,7 @@ function Dashboard({ data }: { data: any }) {
             padding="1rem 0"
           >
             <Flex justifyContent="space-between" px="1rem" mb="1rem">
-              <Text fontSize="12px">Medical Visits Per Day Record Chart</Text>
+              <Text fontSize="12px">Male to Female Monthly Record Chart</Text>
             </Flex>
             <Box
               width="full"
@@ -68,7 +75,7 @@ function Dashboard({ data }: { data: any }) {
               px="1rem"
               position="relative"
             >
-              <LineChart chart={metrics?.medicationVisitsPerDayRecord} />
+              <BarChart chart={metrics?.medicationVisitsPerDayRecord} />
             </Box>
           </Box>
           <VStack

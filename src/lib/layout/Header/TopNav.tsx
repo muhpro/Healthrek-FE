@@ -28,7 +28,7 @@ export default function TopNav() {
       zIndex="100"
     >
       <Text fontSize="22px" fontWeight="bold" textTransform="capitalize">
-        {isAlphanumeric(pageTitle) ? 'User Record' : pageTitle}
+        {isAlphanumeric(pageTitle) ? 'Infant Record' : pageTitle}
       </Text>
       <Flex align="center">
         <Text
@@ -37,7 +37,13 @@ export default function TopNav() {
           pr=".8rem"
           display={['none', 'block']}
         >
-          {`Hi, ${admin ? admin?.fullName.split(' ').at(0) : 'User'}`}
+          {`Hi, ${
+            admin
+              ? `${admin?.role == 'Doctor' ? 'Dr.' : ''} ${admin?.fullName
+                  .split(' ')
+                  .at(0)}`
+              : 'User'
+          }`}
         </Text>
         <Circle
           size="45px"

@@ -96,7 +96,9 @@ export const AddImmunizationRecord = ({
     <DrawerWrapper
       onClose={onClose}
       isOpen={isOpen}
-      title={isEdit ? 'Edit Record' : 'Add new Record'}
+      title={
+        isEdit ? 'Edit Immunization Record' : 'Add new Immunization Record'
+      }
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">

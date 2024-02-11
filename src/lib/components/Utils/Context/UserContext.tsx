@@ -7,7 +7,6 @@ export const UserProvider = ({ children }: { children: any }) => {
   const Cookies = useCookies();
 
   const users = Cookies.get('admin') as unknown as string;
-  console.log({ users });
   if (users !== undefined) {
     user = JSON.parse(users);
   }

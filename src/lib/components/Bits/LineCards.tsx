@@ -92,7 +92,7 @@ export const options = {
 };
 
 export default function LineChart({ chart }: { chart: any }) {
-  const labels = chart?.map((x: any) => x?.day.slice('0,3'));
+  const labels = chart?.map((x: any) => x?.day.slice(0, 3));
 
   const data = {
     labels,

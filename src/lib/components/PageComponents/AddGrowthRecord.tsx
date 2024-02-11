@@ -103,7 +103,7 @@ export const AddGrowthRecord = ({
     <DrawerWrapper
       onClose={onClose}
       isOpen={isOpen}
-      title={isEdit ? 'Edit Record' : 'Add new Record'}
+      title={isEdit ? 'Edit Growth Record' : 'Add new Growth Record'}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">

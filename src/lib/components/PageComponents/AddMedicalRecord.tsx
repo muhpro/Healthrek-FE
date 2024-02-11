@@ -91,7 +91,7 @@ export const AddMedicalRecord = ({
       temperature: '' as any,
       oxygenSaturation: '' as any,
     });
-    setData()
+    setData();
     onClose();
   };
   const onSubmit = async (data: any) => {
@@ -119,7 +119,7 @@ export const AddMedicalRecord = ({
     <DrawerWrapper
       onClose={onClose}
       isOpen={isOpen}
-      title={isEdit ? 'Edit Record' : 'Add new Record'}
+      title={isEdit ? 'Edit Medical Record' : 'Add new Medical Record'}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">
