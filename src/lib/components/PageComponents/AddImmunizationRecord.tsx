@@ -97,7 +97,7 @@ export const AddImmunizationRecord = ({
       onClose={onClose}
       isOpen={isOpen}
       title={
-        isEdit ? 'Edit Immunization Record' : 'Add new Immunization Record'
+        isEdit ? 'Edit Immunization Record' : 'Add Immunization Record'
       }
     >
       <form onSubmit={handleSubmit(onSubmit)}>

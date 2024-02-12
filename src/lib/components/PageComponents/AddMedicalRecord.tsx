@@ -119,7 +119,7 @@ export const AddMedicalRecord = ({
     <DrawerWrapper
       onClose={onClose}
       isOpen={isOpen}
-      title={isEdit ? 'Edit Medical Record' : 'Add new Medical Record'}
+      title={isEdit ? 'Edit Medical Record' : 'Add Medical Record'}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">
