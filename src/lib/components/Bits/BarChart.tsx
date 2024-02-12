@@ -99,13 +99,13 @@ export default function BarChart({ chart }: { chart?: any }) {
         label: 'Male',
         data: chart?.map((x: any) => x?.male),
         // borderColor: 'rgb(0, 0, 0)',
-        backgroundColor: '#e3bc6a',
+        backgroundColor: '#2fdf84',
       },
       {
         label: 'Female',
         data: chart?.map((x: any) => x?.female),
         // borderColor: 'rgb(0, 0, 0)',
-        backgroundColor: '#2fdf84',
+        backgroundColor: '#e3bc6a',
       },
     ],
   };
